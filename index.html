@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 ابرقهرمان</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
 
+        .form-container, .content {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background: #e0554a;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .character {
+            margin: 20px auto;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .character h3 {
+            color: #ff6f61;
+        }
+
+        footer {
+            background: #ff6f61;
+            padding: 10px;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>ورود به سایت</h1>
+        <p>برای ورود اطلاعات زیر را وارد کنید:</p>
+        <input type="number" id="age" placeholder="سن خود را وارد کنید">
+        <input type="email" id="email" placeholder="ایمیل خود را وارد کنید">
+        <input type="password" id="password" placeholder="رمز عبور (اختیاری)">
+        <button onclick="checkLogin()">ورود</button>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <div class="content">
+        <h1>به دنیای 5 ابرقهرمان خوش آمدید</h1>
+        <p>اینجا شخصیت‌ها و داستان‌های ثبت‌شده:</p>
+        <ul id="registeredUsers"></ul>
+
+        <div class="character">
+            <h3>امین</h3>
+            <p>امین رهبر تیم 5 ابرقهرمان است. او با هوش بالا و تصمیم‌گیری‌های استراتژیک خود، گروه را در مسیر موفقیت هدایت می‌کند.</p>
+        </div>
+
+        <div class="character">
+            <h3>سینا</h3>
+            <p>سینا مغز متفکر تیم است. او متخصص ساخت ابزارها و تجهیزات تکنولوژیکی برای مبارزه با دشمنان است.</p>
+        </div>
+
+        <div class="character">
+            <h3>سارا</h3>
+            <p>سارا یک مبارز قدرتمند و نینجای بی‌همتاست. او با مهارت‌های رزمی خود در خط مقدم مبارزات قرار می‌گیرد.</p>
+        </div>
+
+        <div class="character">
+            <h3>محمد</h3>
+            <p>محمد یک مهندس رباتیک نابغه است. او ربات‌های پیشرفته‌ای می‌سازد که در نبردهای سخت به تیم کمک می‌کنند.</p>
+        </div>
+
+        <div class="links">
+            <h3>ارتباط با ما</h3>
+            <ul>
+                <li>ارتباط در دیسکورد: <a href="https://discord.gg/NXFbJp3P" target="_blank">لینک دیسکورد</a></li>
+                <li>پیام در بله: <a href="https://ble.ir/" target="_blank">لینک بله</a></li>
+                <li>شماره تماس: <strong>۰۹۰۵۵۷۳۰۷۹۶</strong></li>
+                <li>ایمیل: <a href="mailto:baradbolhasani6@gmail.com">baradbolhasani6@gmail.com</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        طراحی شده از تیم B&B
+    </footer>
+
+    <script>
+        const registeredUsers = []; // لیست ثبت‌نام‌شده‌ها
+
+        function checkLogin() {
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+
+            // بررسی سن
+            if (age < 7) {
+                error.textContent = "سن شما باید بالای ۷ سال باشد.";
+                return;
+            }
+
+            // اگر رمز عبور bbbb باشد، نمایش خاص
+            if (password === "bbbb") {
+                alert("شما با رمز عبور مدیر وارد شده‌اید!");
+            }
+
+            // ثبت اطلاعات کاربر
+            registeredUsers.push({ email, age });
+            updateRegisteredUsers();
+
+            // نمایش محتوای سایت
+            document.querySelector('.form-container').style.display = 'none';
+            document.querySelector('.content').style.display = 'block';
+        }
+
+        function updateRegisteredUsers() {
+            const userList = document.getElementById('registeredUsers');
+            userList.innerHTML = ""; // پاک کردن لیست قدیمی
+            registeredUsers.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `ایمیل: ${user.email} - سن: ${user.age}`;
+                userList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
